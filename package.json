@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/sweeptic/nodeJs/issues"
   },
-  "homepage": "https://github.com/sweeptic/nodeJs#readme"
+  "homepage": "https://github.com/sweeptic/nodeJs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
