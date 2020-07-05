@@ -20,5 +20,8 @@
   "homepage": "https://github.com/sweeptic/nodeJs#readme",
   "devDependencies": {
     "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }

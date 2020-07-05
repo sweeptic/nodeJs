@@ -1,7 +1,10 @@
 const http = require('http');
 
-const routes = require('./routes');
+const express = require('express');
 
-const server = http.createServer(routes);
+//express is a framework.
+const app = express();
 
-server.listen(3010);
+const server = http.createServer(app);
+
+server.listen(3010); 
