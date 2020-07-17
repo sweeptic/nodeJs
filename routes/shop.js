@@ -10,7 +10,9 @@ router.get('/', (req, res, next) => {
    //delete before use pug templating engine
    // console.log('shop.js', adminData.products);
    // res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
-   res.render('shop');
+
+   const products = adminData.products;
+   res.render('shop', {prods: products, docTitle: 'Shop'});
 });
 
 
