@@ -20,14 +20,27 @@ class User {
     // const cartProduct = this.cart.items.findIndex(cp => {
     //   return cp._id === product._id
     // });
-    const updatedCart = { items: [{ ...product, quantity: 1 }] }
+    const updatedCart = { items: [{ productId: new ObjectId(product._id), quantity: 1 }] }
     const db = getDb();
-    return db.collection('users').updatedOne({ _id: new ObjectId(this._id) }, { $set: { cart: updatedCart } });
+    return db
+      .collection('users')
+      .updateOne(
+        { _id: new ObjectId(this._id) },
+        { $set: { cart: updatedCart } });
   }
 
-  static findBy(user) {
+  static findById(userId) {
     const db = getDb();
-    return db.collection('users').find({ _id: new ObjectId(userId) }).next();
+    return db
+      .collection('users')
+      .findOne({ _id: new ObjectId(userId) })
+      .then(user => {
+        console.log(user)
+        return user;
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 
