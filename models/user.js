@@ -16,8 +16,8 @@ class User {
     return db.collection('users').insertOne(this);
   }
 
-  addToCart(product) {
 
+  addToCart(product) {
     const cartProductIndex = this.cart.items.findIndex(cp => {
       return cp.productId.toString() === product._id.toString()
     });
@@ -61,6 +61,7 @@ class User {
       });
   }
 
+
   deleteItemFromCart(productId) {
     const updatedCartItems = this.cart.items.filter(item => {
       return item.productId.toString() !== productId.toString();
@@ -73,6 +74,7 @@ class User {
         { $set: { cart: { items: updatedCartItems } } });
   }
 
+
   addOrder() {
     const db = getDb();
     return this.getCart()
@@ -84,7 +86,9 @@ class User {
             name: this.name
           }
         }
-        return db.collection('orders').insertOne(order);
+        return db
+          .collection('orders')
+          .insertOne(order);
       })
       .then(result => {
         this.cart = { items: [] }
@@ -99,7 +103,10 @@ class User {
 
   getOrders() {
     const db = getDb();
-    return db.collection('orders').find({ 'user._id': new ObjectId(this._id) }).toArray();
+    return db
+      .collection('orders')
+      .find({ 'user._id': new ObjectId(this._id) })
+      .toArray();
   }
 
 

@@ -9,6 +9,7 @@ exports.getAddProduct = (req, res, next) => {
   });
 };
 
+
 exports.postAddProduct = (req, res, next) => {
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
@@ -18,7 +19,6 @@ exports.postAddProduct = (req, res, next) => {
   product
     .save()
     .then(result => {
-      // console.log(result);
       console.log('Created Product');
       res.redirect('/admin/products');
     })
@@ -26,6 +26,7 @@ exports.postAddProduct = (req, res, next) => {
       console.log(err);
     });
 };
+
 
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
@@ -49,6 +50,7 @@ exports.getEditProduct = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
 
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;
@@ -74,6 +76,7 @@ exports.postEditProduct = (req, res, next) => {
     .catch(err => console.log(err));
 };
 
+
 exports.getProducts = (req, res, next) => {
   Product.fetchAll()
     .then(products => {
@@ -85,6 +88,7 @@ exports.getProducts = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;

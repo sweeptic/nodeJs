@@ -58,9 +58,6 @@ class Product {
       .then(result => { console.log('deleted!'); })
       .catch(err => console.log(err));
   }
-
-
-
 }
 
 
