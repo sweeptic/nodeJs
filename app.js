@@ -10,6 +10,7 @@ const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const MONGODB_URI = 'mongodb+srv://admin:admin@cluster0.tnfyo.gcp.mongodb.net/Cluster0?retryWrites=true&w=majority'
+const SECRET = '!+%G!THghfdgre+%R43trgfd44'
 
 const app = express();
 const store = new MongoDBStore({
@@ -26,8 +27,15 @@ const authRoutes = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: '!+%G!THghfdgre+%R43trgfd44', resave: false, saveUninitialized: false, store: store }))
-
+app.use(
+  session({
+    secret: SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: store
+  }))
+// the cookie on the client identifies a server side session
+// the session on the server are often used for authentication. etc: isLoggedIn =  true
 
 
 
