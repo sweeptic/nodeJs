@@ -9,6 +9,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
+
 const MONGODB_URI = 'mongodb+srv://admin:admin@cluster0.tnfyo.gcp.mongodb.net/Cluster0?retryWrites=true&w=majority'
 const SECRET = '!+%G!THghfdgre+%R43trgfd44'
 
@@ -33,9 +34,8 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: store
-  }))
-// the cookie on the client identifies a server side session
-// the session on the server are often used for authentication. etc: isLoggedIn =  true
+  })
+);
 
 app.use((req, res, next) => {
   if (!req.session.user) {
@@ -49,13 +49,11 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 });
 
-
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
 app.use(errorController.get404);
-
 
 mongoose
   .connect(MONGODB_URI)
@@ -63,16 +61,17 @@ mongoose
     User.findOne().then(user => {
       if (!user) {
         const user = new User({
-          name: 'UserName',
+          name: 'test user',
           email: 'test@test.com',
           cart: {
             items: []
           }
         });
-        user.save()
+        user.save();
       }
-    })
-
-    app.listen(3010)
+    });
+    app.listen(3010);
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+  });
