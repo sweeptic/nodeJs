@@ -34,6 +34,15 @@ const fileStorage = multer.diskStorage({
 
 })
 
+const fileFilter = (req, file, cb) => {
+  if (file.mimeType === 'image/png' || file.mimeType === 'image/jpg' || file.mimeType === 'image/jpeg') {
+    cb(null, true);
+  } else {
+    cb(null, false)
+  }
+}
+
+
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -46,7 +55,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-app.use(multer({ storage: fileStorage }).single('image'));
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
 
 
 
