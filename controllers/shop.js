@@ -1,5 +1,8 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
+const fs = require('fs');
+const path = require('path');
+
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -146,3 +149,46 @@ exports.getOrders = (req, res, next) => {
       return next(error);
     });
 };
+
+// exports.getInvoice = (req, res, next) => {
+//   const orderId = req.params.orderId;
+//   //   Order.findById(orderId)
+//   //     .then(order => {
+//   //       if (!order) {
+//   //         return next(new Error('No order found.'));
+//   //       }
+//   //       if (order.user.userId.toString() !== req.user._id.toString()) {
+//   //         return next(new Error('Unauthorized'));
+//   //       }
+//   const invoiceName = 'invoice-' + orderId + '.pdf';
+//   const invoicePath = path.join('data', 'invoices', invoiceName);
+//   fs.readFile(invoicePath, (err, data) => {
+
+//     if (err) {
+//       return next(err);
+//     } else {
+//       //         res.setHeader('Content-Type', 'application/pdf');
+//       //         res.setHeader(
+//       //           'Content-Disposition',
+//       //           'inline; filename="' + invoiceName + '"'
+//       //         );
+//       res.send(data);
+//     }
+//   });
+//   //     })
+//   //     .catch(err => next(err));
+// };
+
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  const invoiceName = 'invoice-' + orderId + '.pdf';
+  const invoicePath = path.join('data', 'invoices', invoiceName)
+  fs.readFile(invoicePath, (err, data) => {
+    if (err) {
+      return next(err); //default error handling function take over. other code dont execute
+    } else {
+      res.send(data);
+    }
+  })
+}
