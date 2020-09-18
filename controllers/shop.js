@@ -4,6 +4,9 @@ const fs = require('fs');
 const path = require('path');
 
 
+
+// const PDFDocument = require('pdfkit');
+
 exports.getProducts = (req, res, next) => {
   Product.find()
     .then(products => {
@@ -162,9 +165,28 @@ exports.getInvoice = (req, res, next) => {
       }
       const invoiceName = 'invoice-' + orderId + '.pdf';
       const invoicePath = path.join('data', 'invoices', invoiceName);
-      // fs.readFile(invoicePath, (err, data) => {
+
+
+
+      // const pdfDoc = new PDFDocument();    
+      // res.setHeader('Content-Type', 'application/pdf');
+      // res.setHeader(
+      //   'Content-Disposition',
+      //   'inline; filename="' + invoiceName + '"'
+      // );
+
+      // pdfDoc.pipe(fs.createWriteStream(invoicePath));
+      // pdfDoc.pipe(res);
+
+
+      // pdfDoc.text('hello world');
+      // pdfDoc.end();
+
+
+
 
       //preloading data
+      // fs.readFile(invoicePath, (err, data) => {
       //   if (err) {
       //     return next(err);
       //   } else {
@@ -178,13 +200,13 @@ exports.getInvoice = (req, res, next) => {
       // });
 
       //streaming file
-      const file = fs.createReadStream(invoicePath);
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader(
-        'Content-Disposition',
-        'inline; filename="' + invoiceName + '"'
-      );
-      file.pipe(res);
+      // const file = fs.createReadStream(invoicePath);
+      // res.setHeader('Content-Type', 'application/pdf');
+      // res.setHeader(
+      //   'Content-Disposition',
+      //   'inline; filename="' + invoiceName + '"'
+      // );
+      // file.pipe(res);
     })
     .catch(err => next(err));
 };
